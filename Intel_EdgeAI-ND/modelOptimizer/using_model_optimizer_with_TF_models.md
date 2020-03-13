@@ -1,0 +1,34 @@
+> Each framework has its own pages concerning conversion event hough the process is pretty similar.
+
+## Tensorflow conversion
+- configure the model optimizer for tensorflow
+- Freezer tf model if your model is not already frozen
+- or use the separate instructions to convert a non frozen model
+- convert tf model with the model
+- Convert the tf model with model optimizer to an optimized IR (may want/need certain general or TF-specific arguments)
+- Test the model in the IR using inference engine
+
+Differences with other frameworks
+
+- Unfrozen models use --mean_value and --scale
+- Object detection model zoo
+  - tensorflow_use_custom_operation_config
+  - tensorflow_object_detection_api_pipeline_config
+  - reverse_input_channels (RGB vs BGR)
+- YOLO, DeepSpeech and certain others have own pages
+- Even further extend the pretrained models availabele
+- in tf format so need to convert to IR with model optimizer
+- focused on object detection with bounding boxes
+
+Once the Model Optimizer is configured, the next thing to do with a TensorFlow model is to determine whether to use a frozen or unfrozen model. You can either freeze your model, which I would suggest, or use the separate instructions in the documentation to convert a non-frozen model. Some models in TensorFlow may already be frozen for you, so you can skip this step.
+
+From there, you can feed the model into the Model Optimizer, and get your Intermediate Representation. However, there may be a few items specific to TensorFlow for that stage, which you’ll need to feed into the Model Optimizer before it can create an IR for use with the Inference Engine.
+
+TensorFlow models can vary for what additional steps are needed by model type, being unfrozen or frozen, or being from the TensorFlow Detection Model Zoo. Unfrozen models usually need the `--mean_values` and `--scale parameters` fed to the Model Optimizer, while the frozen models from the Object Detection Model Zoo don’t need those parameters. However, the frozen models will need TensorFlow-specific parameters like `--tensorflow_use_custom_operations_config` and `--tensorflow_object_detection_api_pipeline_config`. Also, `--reverse_input_channels` is usually needed, as TF model zoo models are trained on RGB images, while OpenCV usually loads as BGR. Certain models, like YOLO, DeepSpeech, and more, have their own separate pages.
+
+## Tensorflow object detection model zoo
+The models in the TensorFlow Object Detection Model Zoo can be used to even further extend the pre-trained models available to you. These are in TensorFlow format, so they will need to be fed to the Model Optimizer to get an IR. The models are just focused on object detection with bounding boxes, but there are plenty of different model architectures available.
+
+links:
+- The developer documentation for Converting TensorFlow Models can be found [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html). You’ll work through this process in the next exercise.
+- TensorFlow also has additional models available in the [TensorFlow Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). By converting these over to Intermediate Representations, you can expand even further on the pre-trained models available to you.
