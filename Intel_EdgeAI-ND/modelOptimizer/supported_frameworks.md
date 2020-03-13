@@ -12,3 +12,10 @@ There are some differences in how exactly to handle these, although most differe
 - Some differences exist using model optimizer with each
 - E.g Tensorlow has different steps for certain mdels or frozen vs unforzen models
 - Certain frameworks have additional optional parameters
+
+Links:
+- Caffe https://caffe.berkeleyvision.org/
+- Tensorflow https://www.tensorflow.org/
+- MXNet https://mxnet.apache.org/
+- ONNX https://onnx.ai/
+- Kaldi https://kaldi-asr.org/doc/dnn.html
