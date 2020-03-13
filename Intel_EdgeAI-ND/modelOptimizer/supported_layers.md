@@ -16,3 +16,6 @@ Handling  unsupported layers
 - Custom layers
 - Running layer with original framework
 - hardware based cpu extension
+
+links:
+- Check out the full list of supported layers [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html).
